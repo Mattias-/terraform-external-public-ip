@@ -6,8 +6,11 @@ This module outputs your source IP address that services will see that your inte
 
 ```hcl
 module "public_ip" {
-  source  = "Mattias-/public-ip/external"
-  version = "~> 0.1.0"
+  source = "git::https://github.com/Mattias-/terraform-external-public-ip.git?ref=0.1.1"
+}
+
+output "public_ip" {
+  value = module.public_ip.ip
 }
 
 resource "aws_security_group_rule" "ingress_ssh" {
@@ -21,5 +24,7 @@ resource "aws_security_group_rule" "ingress_ssh" {
 ```
 
 ## Requirements
+The module will call the following external binaries so make sure to install them and that they're in $PATH.
+
 * bash
 * dig
